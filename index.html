@@ -1,0 +1,807 @@
+<title>Carol Doçaria Home</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital@1&display=swap">
+<style>
+  :root {
+    --pink: #E8507E;
+    --pink-dark: #CE3D68;
+    --cream: #FDF3E6;
+    --cream-2: #FBEADD;
+    --brown: #4F2C1C;
+    --brown-soft: #7C5240;
+    --brown-deep: #331C11;
+    --mint: #9CA84C;
+    --mint-bg: #EEF0DC;
+    --gold: #C9922B;
+    --gold-bg: #FDEFD3;
+    --yellow: #F5C84C;
+    --white: #FFFFFF;
+    --footer-line: #5C3A2A;
+    --footer-text: #D9BFAE;
+    --footer-text-dim: #A8876E;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--cream); color: var(--brown); font-family: "Nunito", "Segoe UI", system-ui, sans-serif; }
+  a { color: var(--pink); text-decoration: none; }
+  a:hover { color: var(--pink-dark); }
+  h1, h2, h3 { font-family: "Baloo 2", "Segoe UI Rounded", system-ui, sans-serif; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  img, svg { max-width: 100%; }
+
+  .section { padding: clamp(56px, 8vw, 96px) clamp(24px, 7vw, 100px); }
+  .eyebrow { font-family: "Nunito", sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--pink-dark); }
+  .card { background: var(--white); border-radius: 28px; box-shadow: 0 18px 40px rgba(67,40,29,0.09); }
+
+  .btn { display: inline-flex; align-items: center; gap: 10px; font-family: "Nunito", sans-serif; font-weight: 800; border-radius: 999px; border: none; cursor: pointer; white-space: nowrap; }
+  .btn:focus-visible { outline: 3px solid var(--pink-dark); outline-offset: 3px; }
+  .btn-primary { background: var(--pink); color: var(--white); font-size: 17px; padding: 17px 32px; box-shadow: 0 14px 28px rgba(242,80,140,0.32); }
+  .btn-primary:hover { background: var(--pink-dark); color: var(--white); }
+  .btn-secondary { background: transparent; color: var(--brown); font-size: 16px; padding: 15px 26px; border: 2px solid var(--brown); }
+  .btn-secondary:hover { background: var(--brown); color: var(--cream); }
+  .btn-white { background: var(--white); color: var(--pink-dark); font-size: 17px; padding: 17px 32px; }
+  .btn-white:hover { background: var(--cream); color: var(--pink-dark); }
+  .btn-nav { padding: 13px 24px; font-size: 15px; }
+
+  /* NAVBAR */
+  .navbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px clamp(24px, 7vw, 100px); }
+  .logo { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 24px; color: var(--brown); }
+  .logo-img { width: 56px; height: 56px; border-radius: 999px; object-fit: cover; display: block; }
+  .footer-brand .logo-img { width: 68px; height: 68px; }
+  .nav-links { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; }
+  .nav-links a { font-weight: 700; font-size: 15px; color: var(--brown); }
+
+  /* HERO: foto de fundo em tela cheia, com overlay e texto por cima */
+  .hero-banner { position: relative; overflow: hidden; min-height: clamp(460px, 58vw, 620px); display: flex; align-items: center; padding: clamp(48px, 7vw, 80px) clamp(24px, 7vw, 100px); }
+  .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 38%; z-index: 0; animation: hero-bg-zoom 16s ease-in-out infinite alternate; }
+  .hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(100deg, rgba(47,27,19,.90) 0%, rgba(47,27,19,.74) 34%, rgba(47,27,19,.34) 62%, rgba(47,27,19,.12) 100%); }
+  .hero-eyebrow { display: flex; align-items: center; gap: 8px; color: var(--yellow); }
+  .hero-eyebrow svg { color: var(--yellow); flex-shrink: 0; }
+  .hero-copy { position: relative; z-index: 2; max-width: 560px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .hero-copy h1 { font-size: clamp(36px, 5vw, 58px); line-height: 1.06; color: var(--white); }
+  .hero-copy .accent-word { font-family: "Playfair Display", Georgia, serif; font-style: italic; font-weight: 700; color: var(--yellow); }
+  .hero-copy .lede { font-size: 17px; line-height: 1.6; color: #F3E4D6; max-width: 440px; }
+  .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+  .hero-copy .btn-secondary { color: var(--white); border-color: var(--white); }
+  .hero-copy .btn-secondary:hover { background: var(--white); color: var(--brown); }
+  .hero-copy > * { animation: hero-rise .7s ease both; }
+  .hero-copy > *:nth-child(1) { animation-delay: .05s; }
+  .hero-copy > *:nth-child(2) { animation-delay: .15s; }
+  .hero-copy > *:nth-child(3) { animation-delay: .25s; }
+  .hero-copy > *:nth-child(4) { animation-delay: .35s; }
+  @keyframes hero-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes hero-bg-zoom { from { transform: scale(1); } to { transform: scale(1.08); } }
+  @media (max-width: 860px) { .hero-copy { align-items: center; text-align: center; max-width: 100%; } .hero-copy .lede { max-width: 100%; } .hero-overlay { background: linear-gradient(180deg, rgba(47,27,19,.55) 0%, rgba(47,27,19,.85) 65%, rgba(47,27,19,.92) 100%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg, .hero-copy > * { animation: none !important; }
+  }
+
+  /* GRIDS */
+  .grid { display: grid; gap: 24px; }
+  .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  @media (max-width: 980px) { .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .grid-4, .grid-3 { grid-template-columns: 1fr; } }
+
+  .cat-card { padding: 32px 26px; display: flex; flex-direction: column; gap: 16px; }
+  .cat-icon { width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; }
+  .cat-card h3 { font-size: 20px; }
+  .cat-card p { font-size: 14.5px; color: var(--brown-soft); line-height: 1.5; }
+
+  /* SPLIT SECTIONS */
+  .split { display: flex; align-items: center; gap: 56px; }
+  .split.reverse { flex-direction: row; }
+  @media (max-width: 860px) { .split { flex-direction: column; } }
+  .split-visual { flex: 1 1 360px; min-width: 0; display: flex; align-items: center; justify-content: center; }
+  .split-copy { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+  .split-copy p { font-size: 16px; color: var(--brown-soft); line-height: 1.7; }
+  .split-copy h2 { font-size: clamp(28px, 3vw, 36px); color: var(--brown); line-height: 1.18; }
+  .art-frame { width: min(440px, 100%); border-radius: 40px; display: flex; align-items: center; justify-content: center; aspect-ratio: 1.15; }
+
+  .steps { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+  .step { display: flex; align-items: center; gap: 12px; }
+  .step-num { width: 28px; height: 28px; border-radius: 999px; background: var(--pink); color: var(--white); font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-label { font-weight: 700; color: var(--brown); }
+
+  /* CARDÁPIO COMPLETO: carrossel horizontal com setas */
+  .carousel-wrap { display: flex; align-items: center; gap: 12px; }
+  .carousel-arrow { flex-shrink: 0; width: 46px; height: 46px; border-radius: 999px; border: 2px solid var(--brown); background: var(--white); color: var(--brown); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .25s ease, color .25s ease, transform .25s ease; }
+  .carousel-arrow:hover { background: var(--brown); color: var(--cream); transform: scale(1.06); }
+  .carousel-track { display: flex; gap: 22px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding: 6px 2px 14px; flex: 1 1 auto; scrollbar-width: thin; }
+  .menu-card { flex: 0 0 clamp(200px, 24vw, 240px); scroll-snap-align: start; background: var(--white); border-radius: 24px; box-shadow: 0 14px 32px rgba(67,40,29,0.08); overflow: hidden; display: flex; flex-direction: column; transition: transform .3s ease, box-shadow .3s ease; }
+  .menu-card:hover { transform: translateY(-6px); box-shadow: 0 22px 42px rgba(67,40,29,0.16); }
+  .menu-card-photo { height: 140px; display: flex; align-items: center; justify-content: center; }
+  .menu-card-body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 6px; }
+  .menu-card-tag { align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; margin-bottom: 2px; }
+  .menu-card-body h3 { font-size: 16.5px; color: var(--brown); }
+  .menu-card-body p { font-size: 13px; color: var(--brown-soft); }
+  @media (max-width: 620px) { .carousel-arrow { display: none; } }
+
+  /* SISTEMA DE PEDIDOS */
+  .product-order { margin-top: 10px; }
+  .btn-add { width: 100%; background: var(--cream-2); color: var(--pink-dark); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 14px; padding: 11px 16px; border-radius: 999px; border: none; cursor: pointer; transition: background .25s ease, color .25s ease; }
+  .btn-add:hover { background: var(--pink); color: var(--white); }
+  .qty-stepper { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--cream-2); border-radius: 999px; padding: 6px 8px; }
+  .qty-btn { width: 30px; height: 30px; border-radius: 999px; border: none; background: var(--white); color: var(--brown); font-weight: 800; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
+  .qty-btn:hover { background: var(--pink); color: var(--white); }
+  .qty-value { font-weight: 800; color: var(--brown); font-size: 15px; min-width: 18px; text-align: center; }
+  .cart-fab { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: flex; align-items: center; gap: 10px; background: var(--brown); color: var(--cream); border: none; border-radius: 999px; padding: 14px 22px; font-family: "Nunito", sans-serif; font-weight: 800; font-size: 15px; box-shadow: 0 16px 34px rgba(43,24,17,0.32); cursor: pointer; opacity: 0; transform: translateY(16px) scale(.9); pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
+  .cart-fab.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+  .cart-fab-badge { background: var(--pink); color: var(--white); border-radius: 999px; min-width: 22px; height: 22px; padding: 0 6px; display: flex; align-items: center; justify-content: center; font-size: 12.5px; }
+  .cart-overlay { position: fixed; inset: 0; background: rgba(43,24,17,0.5); z-index: 50; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+  .cart-overlay.is-open { opacity: 1; pointer-events: auto; }
+  .cart-panel { position: fixed; right: 0; top: 0; bottom: 0; width: min(400px, 100%); background: var(--cream); z-index: 51; box-shadow: -20px 0 50px rgba(0,0,0,0.2); transform: translateX(100%); transition: transform .3s ease; display: flex; flex-direction: column; }
+  .cart-panel.is-open { transform: translateX(0); }
+  .cart-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px; border-bottom: 1px solid rgba(67,40,29,0.1); }
+  .cart-panel-head h3 { font-size: 20px; color: var(--brown); }
+  .cart-close { width: 34px; height: 34px; border-radius: 999px; border: none; background: var(--cream-2); color: var(--brown); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .cart-items { flex: 1; overflow-y: auto; padding: 16px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .cart-empty { color: var(--brown-soft); font-size: 14.5px; text-align: center; padding: 40px 0; }
+  .cart-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .cart-item-name { font-weight: 700; color: var(--brown); font-size: 14.5px; }
+  .cart-item-price { font-size: 13px; color: var(--brown-soft); }
+  .cart-footer { padding: 20px 24px 24px; border-top: 1px solid rgba(67,40,29,0.1); display: flex; flex-direction: column; gap: 14px; }
+  .cart-total-row { display: flex; align-items: center; justify-content: space-between; font-weight: 800; color: var(--brown); font-size: 17px; }
+  .cart-note { font-size: 12.5px; color: var(--brown-soft); line-height: 1.5; }
+  .cart-checkout-btn { width: 100%; justify-content: center; }
+  @media (prefers-reduced-motion: reduce) {
+    .menu-card, .menu-card:hover { transition: none; transform: none; }
+    .cart-fab, .cart-overlay, .cart-panel { transition: none; }
+  }
+
+  /* PRODUCT CARDS */
+  .section-head { display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; margin-bottom: 40px; }
+  .section-head h2 { font-size: clamp(28px, 3vw, 34px); color: var(--brown); }
+  .section-head-big { font-size: clamp(36px, 5vw, 52px) !important; line-height: 1.05; }
+  .product-reveal, .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+  .product-reveal.is-visible, .reveal.is-visible { opacity: 1; transform: none; }
+  .cat-card { transition: transform .3s ease, box-shadow .3s ease; }
+  .cat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 38px rgba(67,40,29,0.14); }
+  .cat-icon svg { transition: transform .35s ease; }
+  .cat-card:hover .cat-icon svg { transform: scale(1.12) rotate(-6deg); }
+  .step { opacity: 0; transform: translateX(-16px); transition: opacity .5s ease, transform .5s ease; }
+  .step.is-visible { opacity: 1; transform: none; }
+  .grid-4 .reveal:nth-child(1) { transition-delay: 0s; }
+  .grid-4 .reveal:nth-child(2) { transition-delay: .08s; }
+  .grid-4 .reveal:nth-child(3) { transition-delay: .16s; }
+  .grid-4 .reveal:nth-child(4) { transition-delay: .24s; }
+  .steps .step:nth-child(1) { transition-delay: 0s; }
+  .steps .step:nth-child(2) { transition-delay: .08s; }
+  .steps .step:nth-child(3) { transition-delay: .16s; }
+  .steps .step:nth-child(4) { transition-delay: .24s; }
+  .split-visual .art-frame, .split-visual .map-illustration { transition: transform .4s ease; }
+  .split-visual:hover .art-frame { transform: translateY(-6px); }
+
+  /* HISTÓRIA: bloco central, sem imagem, tipografia maior */
+  .historia-block { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+  .historia-num { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: clamp(64px, 9vw, 96px); line-height: 1; color: var(--pink); }
+  .historia-num span { display: block; font-size: 15px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--brown-soft); margin-top: 6px; }
+  .historia-block h2 { font-size: clamp(32px, 4vw, 46px); line-height: 1.15; }
+  .historia-block p { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.75; color: var(--brown-soft); max-width: 680px; }
+  .product-card { overflow: hidden; display: flex; flex-direction: column; transition: transform .3s ease, box-shadow .3s ease; }
+  .product-card:hover { transform: translateY(-8px); box-shadow: 0 26px 50px rgba(67,40,29,0.18); }
+  .product-photo { height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .product-photo svg { transition: transform .35s ease; }
+  .product-card:hover .product-photo svg { transform: scale(1.1) rotate(-4deg); }
+  .product-body { padding: 22px 24px; display: flex; flex-direction: column; gap: 6px; }
+  .product-body h3 { font-size: 18px; color: var(--brown); }
+  .product-body p { font-size: 13.5px; color: var(--brown-soft); }
+  .product-price { font-size: 20px; font-weight: 800; color: var(--pink); margin-top: 6px; }
+  @media (prefers-reduced-motion: reduce) {
+    .product-reveal, .reveal, .step { opacity: 1; transform: none; transition: none; }
+    .product-card, .product-card:hover, .product-photo svg, .product-card:hover .product-photo svg { transition: none; transform: none; }
+    .cat-card, .cat-card:hover, .cat-icon svg, .cat-card:hover .cat-icon svg { transition: none; transform: none; }
+  }
+
+  /* TESTIMONIALS: esteira contínua (marquee) */
+  .marquee { position: relative; overflow: hidden; }
+  .marquee::before, .marquee::after { content: ""; position: absolute; top: 0; bottom: 0; width: clamp(24px, 8vw, 100px); z-index: 2; pointer-events: none; }
+  .marquee::before { left: 0; background: linear-gradient(90deg, var(--cream) 0%, rgba(253,243,230,0) 100%); }
+  .marquee::after { right: 0; background: linear-gradient(270deg, var(--cream) 0%, rgba(253,243,230,0) 100%); }
+  .marquee-track { display: flex; gap: 28px; width: max-content; animation: marquee-scroll 32s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .testimonial { padding: 32px; display: flex; flex-direction: column; gap: 18px; width: 360px; flex-shrink: 0; }
+  .stars { display: flex; gap: 3px; color: var(--yellow); }
+  .testimonial p { font-size: 15.5px; color: var(--brown); line-height: 1.6; font-weight: 600; }
+  .testimonial .name { font-size: 14px; color: var(--brown-soft); font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; overflow-x: auto; }
+    .marquee { overflow-x: auto; }
+  }
+
+  /* LOCATION */
+  .info-row { display: flex; align-items: center; gap: 12px; color: var(--brown); }
+  .info-row.address { align-items: flex-start; }
+  .info-row p { font-size: 16px; font-weight: 700; line-height: 1.5; }
+  .map-illustration { position: relative; width: 100%; height: 420px; border-radius: 32px; overflow: hidden; }
+  .map-illustration svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .map-open-btn { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); font-size: 15px; padding: 13px 24px; }
+  .pin-pulse { transform-origin: center; transform-box: fill-box; opacity: 0.28; animation: pin-pulse 2.6s ease-out infinite; }
+  @keyframes pin-pulse { 0% { transform: scale(0.7); opacity: 0.32; } 100% { transform: scale(1.9); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .pin-pulse { animation: none; opacity: 0; } }
+
+  /* FOOTER */
+  .footer { background: var(--brown); padding: 64px clamp(24px, 7vw, 100px) 40px; display: flex; flex-direction: column; gap: 48px; }
+  .footer-grid { display: flex; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+  .footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 320px; }
+  .footer-brand p { font-size: 14.5px; color: var(--footer-text); line-height: 1.6; }
+  .footer-col { display: flex; flex-direction: column; gap: 14px; }
+  .footer-heading { font-weight: 800; color: var(--white); font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+  .footer-col a, .footer-contact-row { color: var(--footer-text); font-size: 14.5px; font-weight: 700; }
+  .footer-contact-row { display: flex; align-items: center; gap: 10px; }
+  .footer-contact-row.address { align-items: flex-start; }
+  .footer-rule { height: 1px; background: var(--footer-line); }
+  .copyright { font-size: 13px; color: var(--footer-text-dim); font-weight: 600; }
+</style>
+
+<div class="navbar">
+  <img class="logo-img" src="assets/logo.png" alt="Carol Doçaria Artesanal">
+  <div class="nav-links">
+    <a href="#inicio">Início</a>
+    <a href="#cardapio">Cardápio</a>
+    <a href="#historia">Sobre</a>
+    <a href="#avaliacoes">Avaliações</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <div class="btn btn-primary btn-nav">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-4-1L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+    Pedir agora
+  </div>
+</div>
+
+<div class="hero-banner" id="inicio">
+  <img class="hero-bg" src="assets/hero-doces.jpg" alt="Mesa com bolos, brownies, bolo no pote e ovos de chocolate artesanais da Carol Doçaria">
+  <div class="hero-overlay"></div>
+  <div class="hero-copy">
+    <div class="eyebrow hero-eyebrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M12 21s-7.5-4.6-9.7-9.1C.7 8.7 2.2 5 6 5c2.1 0 3.5 1.3 4.5 2.6C11.5 6.3 12.9 5 15 5c3.8 0 5.3 3.7 3.7 6.9C19.5 16.4 12 21 12 21z"/></svg>
+      Feito com amor
+    </div>
+    <h1>Feito à mão,<br>com <span class="accent-word">amor</span><br>em cada doce.</h1>
+    <p class="lede">Brownies, bolos no pote e presentes de chocolate artesanais, prontos pra adoçar o seu dia ou surpreender alguém especial.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://wa.me/5531985511438" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-4-1L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        Peça pelo WhatsApp
+      </a>
+      <a class="btn btn-secondary" href="https://www.ifood.com.br/" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V7a6 6 0 0 1 12 0v2"/><rect x="3" y="9" width="18" height="12" rx="2"/></svg>
+        Peça pelo iFood
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top: 0;" id="cardapio-completo">
+  <div class="section-head reveal" style="align-items: flex-start; text-align: left;">
+    <h2 class="section-head-big">Cardápio completo</h2>
+  </div>
+  <div class="carousel-wrap">
+    <button class="carousel-arrow" id="menuPrev" type="button" aria-label="Ver itens anteriores">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="carousel-track" id="menuCarousel">
+      <div class="menu-card reveal">
+        <div class="menu-card-photo" style="background: linear-gradient(160deg, #FBD1E1 0%, var(--pink) 100%);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10"/><path d="M8 3v3.5L6 9.5v9A2.5 2.5 0 0 0 8.5 21h7a2.5 2.5 0 0 0 2.5-2.5v-9l-2-3V3"/><path d="M6.5 13h11"/></svg>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-tag" style="color: var(--mint); background: var(--mint-bg);">Bolo no Pote</div>
+          <h3>Bolo no Pote</h3>
+          <p>3 tamanhos, vários sabores</p>
+          <div class="product-price">a partir de R$ 12,00</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-photo" style="background: linear-gradient(160deg, #E7C6A8 0%, #7A4A2A 100%);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="10" rx="2"/><path d="M4 9c0-2 2-4 4-4M20 9c0-2-2-4-4-4M9 5c0-1 1-2 2-2"/></svg>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-tag" style="color: var(--pink-dark); background: var(--cream-2);">Brownies</div>
+          <h3>Browniezão no Pote</h3>
+          <p>Recheio ninho, Moça e Nutella · 350g</p>
+          <div class="product-price">R$ 26,00</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-photo" style="background: linear-gradient(160deg, var(--yellow) 0%, #E8447D 100%);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.7-9.1C.7 8.7 2.2 5 6 5c2.1 0 3.5 1.3 4.5 2.6C11.5 6.3 12.9 5 15 5c3.8 0 5.3 3.7 3.7 6.9C19.5 16.4 12 21 12 21z"/></svg>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-tag" style="color: var(--gold); background: var(--gold-bg);">Presentes de Chocolate</div>
+          <h3>Coração de Chocolate</h3>
+          <p>Recheado, ideal pra presentear</p>
+          <div class="product-price">R$ 109,00</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-photo" style="background: linear-gradient(160deg, #8FDFC0 0%, var(--mint) 100%);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 4v16"/></svg>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-tag" style="color: var(--pink); background: var(--cream-2);">Datas Comemorativas</div>
+          <h3>Torta Inglesa Tradicional</h3>
+          <p>Também disponível na versão bolo natalino</p>
+          <div class="product-price">R$ 150,00</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-photo" style="background: linear-gradient(160deg, #F0A8C6 0%, var(--pink-dark) 100%);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M3 13h18"/><path d="M12 9v12"/></svg>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-tag" style="color: var(--pink); background: var(--cream-2);">Datas Comemorativas</div>
+          <h3>Presente Dia dos Namorados</h3>
+          <p>Caixa temática com seleção especial</p>
+          <div class="product-price">R$ 200,00</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-photo" style="background: linear-gradient(160deg, var(--gold-bg) 0%, var(--gold) 100%);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="7" ry="9.5"/><path d="M5 10h14M5 15h14"/></svg>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-tag" style="color: var(--pink); background: var(--cream-2);">Datas Comemorativas</div>
+          <h3>Mini-ovos de Páscoa</h3>
+          <p>Recheados, edição sazonal</p>
+          <div class="product-price">R$ 280,00</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-photo" style="background: linear-gradient(160deg, #FBD1E1 0%, var(--pink-dark) 100%);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M3 13h18"/><path d="M12 9v12"/><path d="M12 9c-1.8 0-4-1-4-3.2A2.3 2.3 0 0 1 10.3 3C12 3 12 6 12 9z"/><path d="M12 9c1.8 0 4-1 4-3.2A2.3 2.3 0 0 0 13.7 3C12 3 12 6 12 9z"/></svg>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-tag" style="color: var(--pink); background: var(--cream-2);">Datas Comemorativas</div>
+          <h3>Presente Dia das Mães</h3>
+          <p>Seleção especial em caixa temática</p>
+          <div class="product-price">R$ 330,00</div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-arrow" id="menuNext" type="button" aria-label="Ver mais itens">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="section split" style="background: var(--cream-2);">
+  <div class="split-visual reveal" id="build-box-visual">
+    <div class="art-frame card" style="overflow: hidden;">
+      <img src="assets/monte-presente.jpg" alt="Caixas de presente artesanais da Carol, montadas com laço e cartão personalizado" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+    </div>
+  </div>
+  <div class="split-copy reveal">
+    <div class="eyebrow">Presentes personalizados</div>
+    <h2>Monte sua caixa de presente</h2>
+    <p>Cada caixa é montada na hora, do seu jeito, perfeita pra presentear ou se presentear.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-label">Escolha o doce</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-label">Escolha o sabor</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-label">Adicione um mimo</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-label">Personalize o cartão</div></div>
+    </div>
+    <div class="btn btn-primary" style="margin-top: 8px;">
+      Montar minha caixa
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="cardapio">
+  <div class="section-head reveal">
+    <h2 class="section-head-big">Monte seu pedido</h2>
+    <div class="eyebrow">Finalize pelo WhatsApp</div>
+  </div>
+  <div class="grid grid-3">
+    <div class="product-reveal"><div class="card product-card" data-product data-name="Bolo no Pote" data-price="12">
+      <div class="product-photo" style="background: linear-gradient(160deg, #FBD1E1 0%, var(--pink) 100%);">
+        <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10"/><path d="M8 3v3.5L6 9.5v9A2.5 2.5 0 0 0 8.5 21h7a2.5 2.5 0 0 0 2.5-2.5v-9l-2-3V3"/><path d="M6.5 13h11"/></svg>
+      </div>
+      <div class="product-body">
+        <h3>Bolo no Pote</h3>
+        <p>3 tamanhos, vários sabores</p>
+        <div class="product-price">a partir de R$ 12,00</div>
+        <div class="product-order"></div>
+      </div>
+    </div></div>
+    <div class="product-reveal"><div class="card product-card" data-product data-name="Browniezão no Pote" data-price="26">
+      <div class="product-photo" style="background: linear-gradient(160deg, #E7C6A8 0%, #7A4A2A 100%);">
+        <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="10" rx="2"/><path d="M4 9c0-2 2-4 4-4M20 9c0-2-2-4-4-4M9 5c0-1 1-2 2-2"/></svg>
+      </div>
+      <div class="product-body">
+        <h3>Browniezão no Pote</h3>
+        <p>Recheio ninho, Moça e Nutella · 350g</p>
+        <div class="product-price">R$ 26,00</div>
+        <div class="product-order"></div>
+      </div>
+    </div></div>
+    <div class="product-reveal"><div class="card product-card" data-product data-name="Coração de Chocolate" data-price="109">
+      <div class="product-photo" style="background: linear-gradient(160deg, var(--yellow) 0%, #E8447D 100%);">
+        <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.7-9.1C.7 8.7 2.2 5 6 5c2.1 0 3.5 1.3 4.5 2.6C11.5 6.3 12.9 5 15 5c3.8 0 5.3 3.7 3.7 6.9C19.5 16.4 12 21 12 21z"/></svg>
+      </div>
+      <div class="product-body">
+        <h3>Coração de Chocolate</h3>
+        <p>Recheado, ideal pra presentear</p>
+        <div class="product-price">R$ 109,00</div>
+        <div class="product-order"></div>
+      </div>
+    </div></div>
+    <div class="product-reveal"><div class="card product-card" data-product data-name="Torta Inglesa Tradicional" data-price="150">
+      <div class="product-photo" style="background: linear-gradient(160deg, #8FDFC0 0%, var(--mint) 100%);">
+        <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 4v16"/></svg>
+      </div>
+      <div class="product-body">
+        <h3>Torta Inglesa Tradicional</h3>
+        <p>Também disponível na versão bolo natalino</p>
+        <div class="product-price">R$ 150,00</div>
+        <div class="product-order"></div>
+      </div>
+    </div></div>
+    <div class="product-reveal"><div class="card product-card" data-product data-name="Presente Dia dos Namorados" data-price="200">
+      <div class="product-photo" style="background: linear-gradient(160deg, #F0A8C6 0%, var(--pink-dark) 100%);">
+        <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M3 13h18"/><path d="M12 9v12"/></svg>
+      </div>
+      <div class="product-body">
+        <h3>Presente Dia dos Namorados</h3>
+        <p>Caixa temática com seleção especial</p>
+        <div class="product-price">R$ 200,00</div>
+        <div class="product-order"></div>
+      </div>
+    </div></div>
+    <div class="product-reveal"><div class="card product-card" data-product data-name="Mini-ovos de Páscoa" data-price="280">
+      <div class="product-photo" style="background: linear-gradient(160deg, var(--gold-bg) 0%, var(--gold) 100%);">
+        <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="7" ry="9.5"/><path d="M5 10h14M5 15h14"/></svg>
+      </div>
+      <div class="product-body">
+        <h3>Mini-ovos de Páscoa</h3>
+        <p>Recheados, edição sazonal</p>
+        <div class="product-price">R$ 280,00</div>
+        <div class="product-order"></div>
+      </div>
+    </div></div>
+    <div class="product-reveal"><div class="card product-card" data-product data-name="Presente Dia das Mães" data-price="330">
+      <div class="product-photo" style="background: linear-gradient(160deg, #FBD1E1 0%, var(--pink-dark) 100%);">
+        <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M3 13h18"/><path d="M12 9v12"/><path d="M12 9c-1.8 0-4-1-4-3.2A2.3 2.3 0 0 1 10.3 3C12 3 12 6 12 9z"/><path d="M12 9c1.8 0 4-1 4-3.2A2.3 2.3 0 0 0 13.7 3C12 3 12 6 12 9z"/></svg>
+      </div>
+      <div class="product-body">
+        <h3>Presente Dia das Mães</h3>
+        <p>Seleção especial em caixa temática</p>
+        <div class="product-price">R$ 330,00</div>
+        <div class="product-order"></div>
+      </div>
+    </div></div>
+  </div>
+  <div style="display: flex; justify-content: center; margin-top: 40px;">
+    <a class="btn btn-secondary" href="#cardapio-completo">Ver cardápio completo</a>
+  </div>
+</div>
+
+<div class="section" id="historia" style="background: var(--cream-2);">
+  <div class="historia-block reveal">
+    <div class="eyebrow">Nossa história</div>
+    <div class="historia-num">3<span>anos de prática e pesquisa</span></div>
+    <h2>Três anos de prática, pesquisa e muito carinho</h2>
+    <p>Com um estilo que é só nosso, elaborado e desenvolvido ao longo de três anos de muita prática e pesquisa, nossa culinária abrange as modalidades de confeitaria, panificação e chocolateria, partindo sempre do tradicional, passando pelo saudável e natural, brincando com o gourmet e culminando no fitness.</p>
+    <p>Nossos produtos são feitos com excelentes ingredientes e nossa alquimia produz sabores deliciosos. Além das especialidades do nosso cardápio, também aceitamos pedidos especiais.</p>
+  </div>
+</div>
+
+<div class="section" id="avaliacoes">
+  <div class="section-head reveal">
+    <div class="eyebrow">Avaliações no Google</div>
+    <h2>Quem já provou, recomenda</h2>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track" id="marqueeTrack"></div>
+  </div>
+</div>
+
+<div class="section split" id="contato" style="background: var(--cream-2);">
+  <div class="split-copy reveal">
+    <div class="eyebrow">Onde estamos</div>
+    <h2>Vem provar de pertinho</h2>
+    <div class="info-row address" style="margin-top: 8px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M12 22s7-7.58 7-12a7 7 0 1 0-14 0c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <p>R. Antônio Augusto, 534<br>Nossa Sra. de Fátima, Contagem - MG<br>32017-250</p>
+    </div>
+    <div class="info-row">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+      <p>Aberto todos os dias até 23h</p>
+    </div>
+    <div class="info-row">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2z"/></svg>
+      <p>(31) 98551-1438</p>
+    </div>
+    <a class="btn btn-primary" style="margin-top: 8px;" href="https://www.google.com/maps/search/?api=1&query=R.+Ant%C3%B4nio+Augusto%2C+534%2C+Nossa+Sra.+de+F%C3%A1tima%2C+Contagem+-+MG%2C+32017-250" target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-12a7 7 0 1 0-14 0c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      Como chegar
+    </a>
+  </div>
+  <div class="split-visual reveal" style="width: 100%;">
+    <div class="map-illustration card">
+      <svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mapa ilustrado da região de Nossa Sra. de Fátima, Contagem">
+        <rect width="600" height="420" fill="#F1E3C9"/>
+        <!-- avenida diagonal -->
+        <path d="M-40 460 L500 -40 L560 -10 L20 480 Z" fill="#F8F1DF"/>
+        <!-- ruas -->
+        <rect x="0" y="104" width="600" height="16" fill="#F8F1DF"/>
+        <rect x="0" y="256" width="600" height="16" fill="#F8F1DF"/>
+        <rect x="142" y="0" width="16" height="420" fill="#F8F1DF"/>
+        <rect x="404" y="0" width="16" height="420" fill="#F8F1DF"/>
+        <!-- quarteirões -->
+        <rect x="24" y="24" width="94" height="64" rx="10" fill="#F3D9E3" stroke="#E6BCCE" stroke-width="1.5"/>
+        <rect x="24" y="132" width="94" height="100" rx="10" fill="#E3C9A0" stroke="#D2AE7C" stroke-width="1.5"/>
+        <rect x="182" y="24" width="198" height="64" rx="10" fill="#E3C9A0" stroke="#D2AE7C" stroke-width="1.5"/>
+        <rect x="182" y="132" width="94" height="100" rx="10" fill="#DCEFE3" stroke="#BFE0CD" stroke-width="1.5"/>
+        <rect x="288" y="132" width="92" height="100" rx="10" fill="#E3C9A0" stroke="#D2AE7C" stroke-width="1.5"/>
+        <rect x="424" y="24" width="152" height="64" rx="10" fill="#F3D9E3" stroke="#E6BCCE" stroke-width="1.5"/>
+        <rect x="424" y="132" width="152" height="100" rx="10" fill="#E3C9A0" stroke="#D2AE7C" stroke-width="1.5"/>
+        <rect x="24" y="288" width="94" height="108" rx="10" fill="#E3C9A0" stroke="#D2AE7C" stroke-width="1.5"/>
+        <rect x="182" y="288" width="198" height="108" rx="10" fill="#F3D9E3" stroke="#E6BCCE" stroke-width="1.5"/>
+        <rect x="424" y="288" width="152" height="108" rx="10" fill="#E3C9A0" stroke="#D2AE7C" stroke-width="1.5"/>
+        <!-- janelinhas nos quarteirões, textura de prédio -->
+        <g fill="#B9895A" opacity="0.35">
+          <rect x="200" y="40" width="10" height="10" rx="2"/><rect x="220" y="40" width="10" height="10" rx="2"/><rect x="240" y="40" width="10" height="10" rx="2"/>
+          <rect x="200" y="58" width="10" height="10" rx="2"/><rect x="220" y="58" width="10" height="10" rx="2"/><rect x="240" y="58" width="10" height="10" rx="2"/>
+          <rect x="440" y="150" width="10" height="10" rx="2"/><rect x="460" y="150" width="10" height="10" rx="2"/><rect x="480" y="150" width="10" height="10" rx="2"/>
+          <rect x="440" y="168" width="10" height="10" rx="2"/><rect x="460" y="168" width="10" height="10" rx="2"/><rect x="480" y="168" width="10" height="10" rx="2"/>
+        </g>
+        <!-- praça / área verde -->
+        <ellipse cx="70" cy="360" rx="42" ry="30" fill="#BFE0CD"/>
+        <circle cx="52" cy="350" r="8" fill="#8FDFC0" stroke="#2E9E72" stroke-width="1.5"/>
+        <circle cx="76" cy="344" r="9" fill="#8FDFC0" stroke="#2E9E72" stroke-width="1.5"/>
+        <circle cx="90" cy="364" r="7" fill="#8FDFC0" stroke="#2E9E72" stroke-width="1.5"/>
+        <!-- bússola -->
+        <g transform="translate(552,44)" opacity="0.8">
+          <circle r="22" fill="#FFFFFF" stroke="#D2AE7C" stroke-width="1.5"/>
+          <path d="M0 -14 L5 0 L0 14 L-5 0 Z" fill="#43281D"/>
+          <text x="0" y="-24" text-anchor="middle" font-size="11" font-weight="800" fill="#43281D" font-family="Nunito, sans-serif">N</text>
+        </g>
+        <!-- marcador da loja -->
+        <g transform="translate(320,200)">
+          <circle class="pin-pulse" r="16" fill="var(--pink)"/>
+          <path d="M0 -34C-12 -34 -21 -25 -21 -13 -21 4 0 26 0 26S21 4 21 -13C21 -25 12 -34 0 -34Z" fill="var(--pink)" stroke="#FFFFFF" stroke-width="3"/>
+          <circle cy="-13" r="7" fill="#FFFFFF"/>
+        </g>
+        <g transform="translate(320,150)">
+          <rect x="-78" y="-28" width="156" height="34" rx="10" fill="#FFFFFF"/>
+          <text x="0" y="-6" text-anchor="middle" font-size="13" font-weight="800" fill="#43281D" font-family="Nunito, sans-serif">Carol Doçaria</text>
+          <path d="M-8 6 L8 6 L0 16 Z" fill="#FFFFFF"/>
+        </g>
+      </svg>
+      <a class="btn btn-primary map-open-btn" href="https://www.google.com/maps/search/?api=1&query=R.+Ant%C3%B4nio+Augusto%2C+534%2C+Nossa+Sra.+de+F%C3%A1tima%2C+Contagem+-+MG%2C+32017-250" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        Abrir no Google Maps
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img class="logo-img" src="assets/logo.png" alt="Carol Doçaria Artesanal">
+      <p>Doceria artesanal em Contagem-MG. Brownies, bolos no pote e presentes de chocolate feitos com carinho.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-heading">Navegação</div>
+      <a href="#inicio">Início</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#historia">Sobre</a>
+      <a href="#avaliacoes">Avaliações</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-heading">Contato</div>
+      <div class="footer-contact-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--footer-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2z"/></svg>
+        (31) 98551-1438
+      </div>
+      <div class="footer-contact-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--footer-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="var(--footer-text)" stroke="none"/></svg>
+        @caroldocariartesanal
+      </div>
+      <div class="footer-contact-row address">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--footer-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 2px; flex-shrink: 0;"><path d="M12 22s7-7.58 7-12a7 7 0 1 0-14 0c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        R. Antônio Augusto, 534, Contagem, MG
+      </div>
+    </div>
+  </div>
+  <div class="footer-rule"></div>
+  <div class="copyright">© 2026 Carol Doçaria Artesanal e Presentes. Todos os direitos reservados.</div>
+</div>
+
+<button class="cart-fab" id="cartFab" type="button">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+  Meu pedido
+  <span class="cart-fab-badge" id="cartFabBadge">0</span>
+</button>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-panel-head">
+    <h3>Seu pedido</h3>
+    <button class="cart-close" id="cartClose" type="button" aria-label="Fechar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">Seu pedido tá vazio. Adicione itens do cardápio pra começar.</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row"><span>Total estimado</span><span id="cartTotal">R$ 0,00</span></div>
+    <p class="cart-note">Valores de itens "a partir de" ou personalizados são confirmados com a Carol pelo WhatsApp antes de fechar o pedido.</p>
+    <a class="btn btn-primary cart-checkout-btn" id="cartCheckout" href="https://wa.me/5531985511438" target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-4-1L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+      Finalizar pedido no WhatsApp
+    </a>
+  </div>
+</div>
+
+<script>
+  // Avaliações do Google: adicione novas aqui quando a Carol mandar mais.
+  var REVIEWS = [
+    { text: '"Top d+, atendimento, qualidade, localização, super recomendo."', name: 'Rodolfo Santos Marques' },
+    { text: '"Bolo no pote é muito gostoso, recomendo!!"', name: 'Luiz Fernando' },
+    { text: '"Excelente, ótimos produtos e muito bem recebido!"', name: 'Rodrigo Correa Lopes' }
+  ];
+
+  var STAR = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>';
+
+  function reviewCard(r) {
+    return '<div class="card testimonial">' +
+      '<div class="stars">' + STAR.repeat(5) + '</div>' +
+      '<p>' + r.text + '</p>' +
+      '<div class="name">' + r.name + '</div>' +
+    '</div>';
+  }
+
+  var track = document.getElementById('marqueeTrack');
+  if (track) {
+    var cardsHTML = REVIEWS.map(reviewCard).join('');
+    // duplica a fileira pra criar o loop contínuo da esteira
+    track.innerHTML = '<div style="display:flex; gap:28px;">' + cardsHTML + '</div>' +
+      '<div style="display:flex; gap:28px;" aria-hidden="true">' + cardsHTML + '</div>';
+    track.style.display = 'flex';
+    track.style.gap = '28px';
+  }
+
+  // revela cards, seções e passos com um leve fade + subida ao entrar na tela
+  var productReveals = document.querySelectorAll('.product-reveal');
+  var otherReveals = document.querySelectorAll('.reveal');
+  var steps = document.querySelectorAll('.step');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    productReveals.forEach(function (el, i) {
+      el.style.transitionDelay = (i % 3) * 0.08 + 's';
+      obs.observe(el);
+    });
+    otherReveals.forEach(function (el) { obs.observe(el); });
+
+    var stepsObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          stepsObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    steps.forEach(function (el) { stepsObs.observe(el); });
+  } else {
+    productReveals.forEach(function (el) { el.classList.add('is-visible'); });
+    otherReveals.forEach(function (el) { el.classList.add('is-visible'); });
+    steps.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  // carrossel do cardápio completo: setas rolam a fileira de cards
+  var menuTrack = document.getElementById('menuCarousel');
+  var menuPrev = document.getElementById('menuPrev');
+  var menuNext = document.getElementById('menuNext');
+  if (menuTrack && menuPrev && menuNext) {
+    var menuScrollAmount = function () {
+      var card = menuTrack.querySelector('.menu-card');
+      return card ? card.getBoundingClientRect().width + 22 : 260;
+    };
+    menuPrev.addEventListener('click', function () { menuTrack.scrollBy({ left: -menuScrollAmount(), behavior: 'smooth' }); });
+    menuNext.addEventListener('click', function () { menuTrack.scrollBy({ left: menuScrollAmount(), behavior: 'smooth' }); });
+  }
+
+  // SISTEMA DE PEDIDOS: adiciona itens, monta o resumo e finaliza no WhatsApp
+  var WHATSAPP_NUMBER = '5531985511438';
+  var cart = {};
+
+  function formatBRL(n) {
+    return 'R$ ' + n.toFixed(2).replace('.', ',');
+  }
+
+  function qtyControlHTML(qty) {
+    return '<div class="qty-stepper">' +
+      '<button type="button" class="qty-btn" data-action="dec" aria-label="Diminuir">−</button>' +
+      '<span class="qty-value">' + qty + '</span>' +
+      '<button type="button" class="qty-btn" data-action="inc" aria-label="Aumentar">+</button>' +
+    '</div>';
+  }
+
+  function updateCart() {
+    var items = Object.keys(cart).map(function (k) { return cart[k]; });
+    var itemsEl = document.getElementById('cartItems');
+    var totalEl = document.getElementById('cartTotal');
+    var badgeEl = document.getElementById('cartFabBadge');
+    var fab = document.getElementById('cartFab');
+    var checkout = document.getElementById('cartCheckout');
+    var totalQty = 0, totalPrice = 0;
+    items.forEach(function (it) { totalQty += it.qty; totalPrice += it.qty * it.price; });
+
+    if (items.length === 0) {
+      itemsEl.innerHTML = '<div class="cart-empty">Seu pedido tá vazio. Adicione itens do cardápio pra começar.</div>';
+    } else {
+      itemsEl.innerHTML = items.map(function (it) {
+        return '<div class="cart-item">' +
+          '<div><div class="cart-item-name">' + it.qty + 'x ' + it.name + '</div>' +
+          '<div class="cart-item-price">' + formatBRL(it.price * it.qty) + '</div></div>' +
+        '</div>';
+      }).join('');
+    }
+    totalEl.textContent = formatBRL(totalPrice);
+    badgeEl.textContent = totalQty;
+    fab.classList.toggle('is-visible', totalQty > 0);
+
+    var lines = ['Olá! Quero fazer um pedido na Carol Doçaria:', ''];
+    items.forEach(function (it) { lines.push('• ' + it.qty + 'x ' + it.name + ' — ' + formatBRL(it.price * it.qty)); });
+    lines.push('', 'Total estimado: ' + formatBRL(totalPrice));
+    var msg = items.length ? lines.join('\n') : 'Olá! Quero fazer um pedido na Carol Doçaria.';
+    checkout.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
+  }
+
+  document.querySelectorAll('[data-product]').forEach(function (card) {
+    var name = card.dataset.name;
+    var price = parseFloat(card.dataset.price);
+    var orderEl = card.querySelector('.product-order');
+    if (!orderEl) return;
+
+    function renderOrder() {
+      var qty = cart[name] ? cart[name].qty : 0;
+      orderEl.innerHTML = qty > 0 ? qtyControlHTML(qty) : '<button type="button" class="btn-add">+ Adicionar</button>';
+    }
+    renderOrder();
+
+    orderEl.addEventListener('click', function (e) {
+      var addBtn = e.target.closest('.btn-add');
+      if (addBtn) {
+        cart[name] = { name: name, price: price, qty: 1 };
+        renderOrder();
+        updateCart();
+        return;
+      }
+      var qtyBtn = e.target.closest('.qty-btn');
+      if (qtyBtn && cart[name]) {
+        if (qtyBtn.dataset.action === 'inc') {
+          cart[name].qty++;
+        } else {
+          cart[name].qty--;
+          if (cart[name].qty <= 0) delete cart[name];
+        }
+        renderOrder();
+        updateCart();
+      }
+    });
+  });
+
+  updateCart();
+
+  var cartFab = document.getElementById('cartFab');
+  var cartOverlay = document.getElementById('cartOverlay');
+  var cartPanel = document.getElementById('cartPanel');
+  var cartClose = document.getElementById('cartClose');
+  function openCart() { cartPanel.classList.add('is-open'); cartOverlay.classList.add('is-open'); }
+  function closeCart() { cartPanel.classList.remove('is-open'); cartOverlay.classList.remove('is-open'); }
+  if (cartFab) cartFab.addEventListener('click', openCart);
+  if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+  if (cartClose) cartClose.addEventListener('click', closeCart);
+</script>
