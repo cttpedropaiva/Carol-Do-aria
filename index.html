@@ -1,4 +1,12 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Carol Doçaria Home</title>
+<meta name="description" content="Carol Doçaria Artesanal — brownies, bolos no pote e presentes de chocolate feitos à mão em Contagem-MG.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital@1&display=swap">
 <style>
   :root {
@@ -20,6 +28,7 @@
     --footer-text-dim: #A8876E;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body { margin: 0; background: var(--cream); color: var(--brown); font-family: "Nunito", "Segoe UI", system-ui, sans-serif; }
   a { color: var(--pink); text-decoration: none; }
   a:hover { color: var(--pink-dark); }
@@ -48,6 +57,15 @@
   .footer-brand .logo-img { width: 68px; height: 68px; }
   .nav-links { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; }
   .nav-links a { font-weight: 700; font-size: 15px; color: var(--brown); }
+  .nav-toggle { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; border: 2px solid var(--brown); background: var(--white); color: var(--brown); cursor: pointer; flex-shrink: 0; }
+  @media (max-width: 860px) {
+    .navbar { flex-wrap: wrap; row-gap: 14px; }
+    .nav-toggle { display: flex; order: 1; margin-left: auto; }
+    .navbar .btn-nav { order: 2; }
+    .nav-links { display: none; order: 3; flex-basis: 100%; flex-direction: column; align-items: flex-start; gap: 4px; background: var(--white); border-radius: 20px; padding: 14px 18px; box-shadow: 0 14px 32px rgba(67,40,29,0.12); }
+    .nav-links.is-open { display: flex; }
+    .nav-links a { width: 100%; padding: 12px 6px; font-size: 16.5px; }
+  }
 
   /* HERO: foto de fundo em tela cheia, com overlay e texto por cima */
   .hero-banner { position: relative; overflow: hidden; min-height: clamp(460px, 58vw, 620px); display: flex; align-items: center; padding: clamp(48px, 7vw, 80px) clamp(24px, 7vw, 100px); }
@@ -231,25 +249,35 @@
   .footer-contact-row.address { align-items: flex-start; }
   .footer-rule { height: 1px; background: var(--footer-line); }
   .copyright { font-size: 13px; color: var(--footer-text-dim); font-weight: 600; }
+
+  /* sem zoom por toque nem seleção/cópia de texto ou imagens */
+  html, body { touch-action: manipulation; }
+  * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  img { -webkit-user-drag: none; user-drag: none; }
 </style>
+</head>
+<body>
 
 <div class="navbar">
-  <img class="logo-img" src="assets/logo.png" alt="Carol Doçaria Artesanal">
-  <div class="nav-links">
+  <img class="logo-img" src="assets/logo.jpg" alt="Carol Doçaria Artesanal" width="68" height="68" decoding="async">
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+  <div class="nav-links" id="navLinks">
     <a href="#inicio">Início</a>
     <a href="#cardapio">Cardápio</a>
     <a href="#historia">Sobre</a>
     <a href="#avaliacoes">Avaliações</a>
     <a href="#contato">Contato</a>
   </div>
-  <div class="btn btn-primary btn-nav">
+  <a class="btn btn-primary btn-nav" href="https://wa.me/5531985511438" target="_blank" rel="noopener noreferrer">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-4-1L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
     Pedir agora
-  </div>
+  </a>
 </div>
 
 <div class="hero-banner" id="inicio">
-  <img class="hero-bg" src="assets/hero-doces.jpg" alt="Mesa com bolos, brownies, bolo no pote e ovos de chocolate artesanais da Carol Doçaria">
+  <img class="hero-bg" src="assets/hero-doces.jpg" alt="Mesa com bolos, brownies, bolo no pote e ovos de chocolate artesanais da Carol Doçaria" width="1100" height="619" fetchpriority="high" decoding="async">
   <div class="hero-overlay"></div>
   <div class="hero-copy">
     <div class="eyebrow hero-eyebrow">
@@ -367,7 +395,7 @@
 <div class="section split" style="background: var(--cream-2);">
   <div class="split-visual reveal" id="build-box-visual">
     <div class="art-frame card" style="overflow: hidden;">
-      <img src="assets/monte-presente.jpg" alt="Caixas de presente artesanais da Carol, montadas com laço e cartão personalizado" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <img src="assets/monte-presente.jpg" alt="Caixas de presente artesanais da Carol, montadas com laço e cartão personalizado" style="width: 100%; height: 100%; object-fit: cover; display: block;" width="900" height="1125" loading="lazy" decoding="async">
     </div>
   </div>
   <div class="split-copy reveal">
@@ -380,10 +408,10 @@
       <div class="step"><div class="step-num">3</div><div class="step-label">Adicione um mimo</div></div>
       <div class="step"><div class="step-num">4</div><div class="step-label">Personalize o cartão</div></div>
     </div>
-    <div class="btn btn-primary" style="margin-top: 8px;">
+    <a class="btn btn-primary" style="margin-top: 8px;" href="#cardapio">
       Montar minha caixa
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-    </div>
+    </a>
   </div>
 </div>
 
@@ -580,7 +608,7 @@
 <div class="footer">
   <div class="footer-grid">
     <div class="footer-brand">
-      <img class="logo-img" src="assets/logo.png" alt="Carol Doçaria Artesanal">
+      <img class="logo-img" src="assets/logo.jpg" alt="Carol Doçaria Artesanal" width="68" height="68" decoding="async">
       <p>Doceria artesanal em Contagem-MG. Brownies, bolos no pote e presentes de chocolate feitos com carinho.</p>
     </div>
     <div class="footer-col">
@@ -638,6 +666,22 @@
 </div>
 
 <script>
+  // menu mobile: hamburger abre/fecha a lista de links
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   // Avaliações do Google: adicione novas aqui quando a Carol mandar mais.
   var REVIEWS = [
     { text: '"Top d+, atendimento, qualidade, localização, super recomendo."', name: 'Rodolfo Santos Marques' },
@@ -804,4 +848,9 @@
   if (cartFab) cartFab.addEventListener('click', openCart);
   if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
   if (cartClose) cartClose.addEventListener('click', closeCart);
+
+  // bloqueia menu de contexto (toque longo / botão direito) pra impedir salvar/copiar
+  document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 </script>
+</body>
+</html>
